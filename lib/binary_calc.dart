@@ -1,5 +1,3 @@
-import 'dart:io';
-
 int _convertBinToDec(String value){
   var new_value = int.parse(value, radix: 2).toRadixString(10);
   return int.parse(new_value);
