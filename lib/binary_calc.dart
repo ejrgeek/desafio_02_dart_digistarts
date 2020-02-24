@@ -1,53 +1,68 @@
 int _convertBinToDec(String value){
-  var new_value = int.parse(value, radix: 2).toRadixString(10);
-  return int.parse(new_value);
+  var newValue = '0';
+  if (value.isNotEmpty){
+    newValue = int.parse(value, radix: 2).toRadixString(10);
+  }
+return int.parse(newValue);
 }
 
+/// Metodo responsavel por converter de decimal para binario
 String _convertDecToBin(String value){
-  var new_value = int.parse(value, radix: 10).toRadixString(2);
-  var new_binary_number;
+  var newValue = '0';
+  var newBinaryNumber = '0';
 
-  if (new_value.length < 8 ){
-    new_binary_number = '0'*(8-new_value.length);
-    new_binary_number += new_value;
+  if (value != null){
+    print(value);
+    newValue = int.parse(value, radix: 10).toRadixString(2);
   }
 
-  return new_binary_number;
+  if (newValue.length < 8 ){
+    newBinaryNumber = '0'*(8-newValue.length);
+    newBinaryNumber += newValue;
+  }
+
+  return newBinaryNumber;
 }
 
+
+/// Metodo responsavel para verificar se o valor está entre 0 e 255 ou um deles
 bool _verifyValue(int value){
-  return true ? value >= 0 || value <= 255 : false;
+  var status = false;
+  if (value >= 0 || value <= 255){
+    status = true;
+  }
+  return status;
 }
 
+/// Metodo responsavel por controlar todo o modulo de conversao 
+String calcBin(String operation, String firstValue, String secondValue){
 
-String calcBin(String operation, String first_value, String second_value){
+  var newFirstValue = _convertBinToDec(firstValue);
+  var newSecondValue = _convertBinToDec(secondValue);
+  var result = 0;
 
-  var new_first_value = _convertBinToDec(first_value);
-  var new_second_value = _convertBinToDec(second_value);
-  var result;
-
-  if ( _verifyValue(new_first_value) && _verifyValue(new_second_value) ){
+  if ( _verifyValue(newFirstValue) && _verifyValue(newSecondValue) && firstValue.isNotEmpty && secondValue.isNotEmpty){
 
     switch (operation){
       
       case '+':
-        result = new_first_value + new_second_value;
+        result = newFirstValue + newSecondValue;
         break;
       
       case '-':
-        result = new_first_value - new_second_value;
+        result = newFirstValue - newSecondValue;
         break;
       
       case '*':
-        result = new_first_value * new_second_value;
+        result = newFirstValue * newSecondValue;
         break;
 
       case '/':
-        result = (new_first_value / new_second_value).round();
+        result = (newFirstValue / newSecondValue).round();
         break;
 
       case '%':
-        result = (new_first_value % new_second_value).round();
+        result = (newFirstValue % newSecondValue).round();
         break;
       default:
         break;
@@ -55,6 +70,6 @@ String calcBin(String operation, String first_value, String second_value){
 
   }
 
-  return _convertDecToBin(result.toString());
+return _convertDecToBin(result.toString());
 
 }
